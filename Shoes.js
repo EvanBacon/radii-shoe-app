@@ -1,4 +1,38 @@
 export default {
+  Cylinder_nautical2: {
+    category: 'Cylinder',
+
+    name: 'Navy Red White Gold Leather',
+    price: 130,
+    colors: ['#ECEFFF', 'blue', 'red', 'gold'],
+    format: 'USD',
+    description:
+      'This post apocalyptic high top is brought to life with its unique design and padded straps over the forefoot and ankle.  With metal logo detailing on the tongue, a padded collar and tongue for support, and our new stitched outsole for durability and comfort, this shoe will become a staple piece for many years to come.   Inside the shoe is our patented Cloud 9 insole for maximum comfort.',
+    image: require(`./assets/shoes/Cylinder_nautical2.jpg`),
+  },
+  Apex_mirror3: {
+    category: 'Prism',
+
+    name: 'Mirror Red Black',
+    price: 130,
+    format: 'USD',
+    colors: ['black', 'red', '#D2D2D2'],
+    description:
+      'An interpretation of an old RADII classic, the Prism draws influence from iconic running silhouettes and later basketball silhouettes.   The brand new outsole combines a durable grippy rubber sole with polyurethane midsole for extra cushioning and comfort.  The heel and tongue connect to make a one piece booty liner which hugs your foot and ankle for the highest level of support, while the ankle cut outs on the quarter panels leave you with extra lateral movement.  The entire lacing system is hidden for and added level of elegance and our Cloud 9 insole, for maximum sustained comfort, finishes off the Prism.',
+    preorder: '01/30/2018',
+    image: require(`./assets/shoes/Apex_mirror3.jpg`),
+  },
+  straightJacket_oil2: {
+    category: 'Straight Jacket',
+    name: 'Oil Patent Leather',
+    price: 120,
+    sale: 60,
+    colors: ['black', '#ECEFFF'],
+    format: 'USD',
+    description:
+      'Inspired by the restriction device used in mental institutes, the Straight Jacket remains the staple piece in Radii’s line. One of the most technical designs and futuristic characteristics, this shoe is set on a vulcanized outsole, implores the Cloud 9 insole, has three straps harnessed by metal buckles, a removable top strap, and finally a fully functional YKK zipper on the side ankle for easy access and design aesthetic.',
+    image: require(`./assets/shoes/straightJacket_oil2.jpg`),
+  },
   Apex_ashpalt2: {
     category: 'Apex',
 
@@ -9,6 +43,27 @@ export default {
     description:
       'This European styled high top is a combination between luxury and comfort. The upper is an elegant design of hidden seamed panels and thick removable top strap that can be worn with or without depending on the occasion.  The outsole is a three piece custom molded combination of air, polyurethane, and rubber for comfort, durability, and style. Finally, the Cloud 9 insole in each pair finishes of the most comfortable luxury sneaker RADII has ever produced. This style comes in restricted numbers and will only be for the shrewdest consumers.',
     image: require(`./assets/shoes/Apex_ashpalt2.jpg`),
+  },
+  Prism_dolphin1: {
+    category: 'Prism',
+    name: 'Dolphin Ice',
+    price: 135,
+    format: 'USD',
+    colors: ['gray', '#ECEFFF', 'blue'],
+    description:
+      'An interpretation of an old RADII classic, the Prism draws influence from iconic running silhouettes and later basketball silhouettes.   The brand new outsole combines a durable grippy rubber sole with polyurethane midsole for extra cushioning and comfort.  The heel and tongue connect to make a one piece booty liner which hugs your foot and ankle for the highest level of support, while the ankle cut outs on the quarter panels leave you with extra lateral movement.  The entire lacing system is hidden for and added level of elegance and our Cloud 9 insole, for maximum sustained comfort, finishes off the Prism.',
+    image: require(`./assets/shoes/Prism_dolphin1.jpg`),
+  },
+  Apex_liqgld2: {
+    category: 'Apex',
+
+    name: 'Liquid Gold Metallic',
+    price: 160,
+    format: 'USD',
+    colors: ['#F0EFE0', '#ECEFFF'],
+    description:
+      'This European styled high top is a combination between luxury and comfort. The upper is an elegant design of hidden seamed panels and thick removable top strap that can be worn with or without depending on the occasion.  The outsole is a three piece custom molded combination of air, polyurethane, and rubber for comfort, durability, and style. Finally, the Cloud 9 insole in each pair finishes of the most comfortable luxury sneaker RADII has ever produced. This style comes in restricted numbers and will only be for the shrewdest consumers.',
+    image: require(`./assets/shoes/Apex_liqgld2.jpg`),
   },
   Apex_brdx2: {
     category: 'Apex',
@@ -37,7 +92,7 @@ export default {
 
     name: 'Hazelnut pigskin microfiber',
     price: 160,
-    colors: ['#6F5B56'],
+    colors: ['#6F5B56', '#ECEFFF'],
     format: 'USD',
     description:
       'This European styled high top is a combination between luxury and comfort. The upper is an elegant design of hidden seamed panels and thick removable top strap that can be worn with or without depending on the occasion.  The outsole is a three piece custom molded combination of air, polyurethane, and rubber for comfort, durability, and style. Finally, the Cloud 9 insole in each pair finishes of the most comfortable luxury sneaker RADII has ever produced. This style comes in restricted numbers and will only be for the shrewdest consumers.',
@@ -48,29 +103,19 @@ export default {
 
     name: 'Jet Pebble Leather Gum',
     price: 160,
-    colors: ['#417505'],
+    colors: ['#4A4A4A', '#B6977B'],
 
     format: 'USD',
     description:
       'This European styled high top is a combination between luxury and comfort. The upper is an elegant design of hidden seamed panels and thick removable top strap that can be worn with or without depending on the occasion.  The outsole is a three piece custom molded combination of air, polyurethane, and rubber for comfort, durability, and style. Finally, the Cloud 9 insole in each pair finishes of the most comfortable luxury sneaker RADII has ever produced. This style comes in restricted numbers and will only be for the shrewdest consumers.',
     image: require(`./assets/shoes/Apex_jetgum2.jpg`),
   },
-  Apex_liqgld2: {
-    category: 'Apex',
 
-    name: 'Liquid Gold Metallic',
-    price: 160,
-    format: 'USD',
-    colors: ['gold'],
-    description:
-      'This European styled high top is a combination between luxury and comfort. The upper is an elegant design of hidden seamed panels and thick removable top strap that can be worn with or without depending on the occasion.  The outsole is a three piece custom molded combination of air, polyurethane, and rubber for comfort, durability, and style. Finally, the Cloud 9 insole in each pair finishes of the most comfortable luxury sneaker RADII has ever produced. This style comes in restricted numbers and will only be for the shrewdest consumers.',
-    image: require(`./assets/shoes/Apex_liqgld2.jpg`),
-  },
   Apex_mars3: {
     category: 'Apex',
 
     name: 'Mars Red Pigskin Microfiber',
-    colors: ['red'],
+    colors: ['red', '#ECEFFF'],
     price: 160,
     format: 'USD',
     description:
@@ -84,7 +129,7 @@ export default {
     name: 'Silk Pebble Leather Gum',
     price: 160,
     format: 'USD',
-    colors: ['white', '#417505'],
+    colors: ['#ECEFFF', '#B6977B'],
     description:
       'This European styled high top is a combination between luxury and comfort. The upper is an elegant design of hidden seamed panels and thick removable top strap that can be worn with or without depending on the occasion.  The outsole is a three piece custom molded combination of air, polyurethane, and rubber for comfort, durability, and style. Finally, the Cloud 9 insole in each pair finishes of the most comfortable luxury sneaker RADII has ever produced. This style comes in restricted numbers and will only be for the shrewdest consumers.',
     image: require(`./assets/shoes/Apex_slkgum2.jpg`),
@@ -107,7 +152,7 @@ export default {
     name: '24K Gold Bar',
     price: 130,
     format: 'USD',
-    colors: ['gold', 'white'],
+    colors: ['gold', '#ECEFFF'],
     description:
       'This post apocalyptic high top is brought to life with its unique design and padded straps over the forefoot and ankle.  With metal logo detailing on the tongue, a padded collar and tongue for support, and our new stitched outsole for durability and comfort, this shoe will become a staple piece for many years to come.   Inside the shoe is our patented Cloud 9 insole for maximum comfort.',
     image: require(`./assets/shoes/Cylinder_gldbar2.jpg`),
@@ -129,30 +174,20 @@ export default {
     name: 'Liquid Silver Leather',
     sale: 80,
     price: 130,
-    colors: ['silver', 'white'],
+    colors: ['silver', '#ECEFFF'],
     format: 'USD',
     description:
       'This post apocalyptic high top is brought to life with its unique design and padded straps over the forefoot and ankle.  With metal logo detailing on the tongue, a padded collar and tongue for support, and our new stitched outsole for durability and comfort, this shoe will become a staple piece for many years to come.   Inside the shoe is our patented Cloud 9 insole for the longest lasting comfort and relief.',
     image: require(`./assets/shoes/Cylinder_liqsil2.jpg`),
   },
-  Cylinder_nautical2: {
-    category: 'Cylinder',
 
-    name: 'Navy Red White Gold Leather',
-    price: 130,
-    colors: ['white', 'blue', 'red', 'gold'],
-    format: 'USD',
-    description:
-      'This post apocalyptic high top is brought to life with its unique design and padded straps over the forefoot and ankle.  With metal logo detailing on the tongue, a padded collar and tongue for support, and our new stitched outsole for durability and comfort, this shoe will become a staple piece for many years to come.   Inside the shoe is our patented Cloud 9 insole for maximum comfort.',
-    image: require(`./assets/shoes/Cylinder_nautical2.jpg`),
-  },
   Cylinder_oilarm2: {
     category: 'Cylinder',
 
     name: 'Oil Patent Leather Army Camo',
     sale: 70,
     price: 130,
-    colors: ['#417505', 'black', 'white'],
+    colors: ['#417505', 'black', '#ECEFFF'],
     format: 'USD',
     description:
       'This post apocalyptic high top is brought to life with its unique design and padded straps over the forefoot and ankle.  With metal logo detailing on the tongue, a padded collar and tongue for support, and our new stitched outsole for durability and comfort, this shoe will become a staple piece for many years to come.   Inside the shoe is our patented Cloud 9 insole for maximum comfort.',
@@ -168,23 +203,12 @@ export default {
       'This post apocalyptic high top is brought to life with its unique design and padded straps over the forefoot and ankle.  With metal logo detailing on the tongue, a padded collar and tongue for support, and our new stitched outsole for durability and comfort, this shoe will become a staple piece for many years to come.   Inside the shoe is our patented Cloud 9 insole for the longest lasting comfort and relief.',
     image: require(`./assets/shoes/Cylinder_scrpyth2.jpg`),
   },
-  Apex_mirror3: {
-    category: 'Prism',
 
-    name: 'Mirror Red Black',
-    price: 130,
-    format: 'USD',
-    colors: ['black', 'red'],
-    description:
-      'An interpretation of an old RADII classic, the Prism draws influence from iconic running silhouettes and later basketball silhouettes.   The brand new outsole combines a durable grippy rubber sole with polyurethane midsole for extra cushioning and comfort.  The heel and tongue connect to make a one piece booty liner which hugs your foot and ankle for the highest level of support, while the ankle cut outs on the quarter panels leave you with extra lateral movement.  The entire lacing system is hidden for and added level of elegance and our Cloud 9 insole, for maximum sustained comfort, finishes off the Prism.',
-    preorder: '01/30/2018',
-    image: require(`./assets/shoes/Apex_mirror3.jpg`),
-  },
   Prism_armgum1: {
     category: 'Prism',
     name: 'Army Camo Black',
     price: 130,
-    colors: ['#417505', 'black', '#417505', 'white'],
+    colors: ['#417505', 'black', '#BF8019', '#ECEFFF'],
     format: 'USD',
     description:
       'An interpretation of an old RADII classic, the Prism draws influence from iconic running silhouettes and later basketball silhouettes.   The brand new outsole combines a durable grippy rubber sole with polyurethane midsole for extra cushioning and comfort.  The heel and tongue connect to make a one piece booty liner which hugs your foot and ankle for the highest level of support, while the ankle cut outs on the quarter panels leave you with extra lateral movement.  The entire lacing system is hidden for and added level of elegance and our Cloud 9 insole, for maximum sustained comfort, finishes off the Prism.',
@@ -194,28 +218,19 @@ export default {
     category: 'Prism',
     name: 'Black Red Alert',
     price: 135,
-    colors: ['black', 'white', 'red'],
+    colors: ['black', '#ECEFFF', 'red'],
     format: 'USD',
     description:
       'An interpretation of an old RADII classic, the Prism draws influence from iconic running silhouettes and later basketball silhouettes.   The brand new outsole combines a durable grippy rubber sole with polyurethane midsole for extra cushioning and comfort.  The heel and tongue connect to make a one piece booty liner which hugs your foot and ankle for the highest level of support, while the ankle cut outs on the quarter panels leave you with extra lateral movement.  The entire lacing system is hidden for and added level of elegance and our Cloud 9 insole, for maximum sustained comfort, finishes off the Prism.',
     image: require(`./assets/shoes/Prism_blkalrt1.jpg`),
   },
-  Prism_dolphin1: {
-    category: 'Prism',
-    name: 'Dolphin Ice',
-    price: 135,
-    format: 'USD',
-    colors: ['gray', 'white', 'blue'],
-    description:
-      'An interpretation of an old RADII classic, the Prism draws influence from iconic running silhouettes and later basketball silhouettes.   The brand new outsole combines a durable grippy rubber sole with polyurethane midsole for extra cushioning and comfort.  The heel and tongue connect to make a one piece booty liner which hugs your foot and ankle for the highest level of support, while the ankle cut outs on the quarter panels leave you with extra lateral movement.  The entire lacing system is hidden for and added level of elegance and our Cloud 9 insole, for maximum sustained comfort, finishes off the Prism.',
-    image: require(`./assets/shoes/Prism_dolphin1.jpg`),
-  },
+
   Prism_gldbar1: {
     category: 'Prism',
     name: '24K Gold Bar',
     price: 135,
     format: 'USD',
-    colors: ['gold', 'white'],
+    colors: ['gold', '#ECEFFF'],
     description:
       'An interpretation of an old RADII classic, the Prism draws influence from iconic running silhouettes and later basketball silhouettes.   The brand new outsole combines a durable grippy rubber sole with polyurethane midsole for extra cushioning and comfort.  The heel and tongue connect to make a one piece booty liner which hugs your foot and ankle for the highest level of support, while the ankle cut outs on the quarter panels leave you with extra lateral movement.  The entire lacing system is hidden for and added level of elegance and our Cloud 9 insole, for maximum sustained comfort, finishes off the Prism.',
     image: require(`./assets/shoes/Prism_gldbar1.jpg`),
@@ -224,21 +239,10 @@ export default {
     category: 'Prism',
     name: 'Honey Chocolate pigskin microfiber',
     price: 130,
-    colors: ['#A3795A'],
+    colors: ['#A3795A', '#684A17'],
     format: 'USD',
     description:
       'An interpretation of an old RADII classic, the Prism draws influence from iconic running silhouettes and later basketball silhouettes.   The brand new outsole combines a durable grippy rubber sole with polyurethane midsole for extra cushioning and comfort.  The heel and tongue connect to make a one piece booty liner which hugs your foot and ankle for the highest level of support, while the ankle cut outs on the quarter panels leave you with extra lateral movement.  The entire lacing system is hidden for and added level of elegance and our Cloud 9 insole, for maximum sustained comfort, finishes off the Prism.',
     image: require(`./assets/shoes/Prism_honey.jpg`),
-  },
-  straightJacket_oil2: {
-    category: 'Straight Jacket',
-    name: 'Oil Patent Leather',
-    price: 120,
-    sale: 60,
-    colors: ['black', 'white'],
-    format: 'USD',
-    description:
-      'Inspired by the restriction device used in mental institutes, the Straight Jacket remains the staple piece in Radii’s line. One of the most technical designs and futuristic characteristics, this shoe is set on a vulcanized outsole, implores the Cloud 9 insole, has three straps harnessed by metal buckles, a removable top strap, and finally a fully functional YKK zipper on the side ankle for easy access and design aesthetic.',
-    image: require(`./assets/shoes/straightJacket_oil2.jpg`),
   },
 };

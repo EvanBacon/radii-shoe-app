@@ -24,7 +24,7 @@ const PRODUCT_LIST = Object.keys(Shoes).map(key => {
     title: shoe.name,
     sale: shoe.sale ? `SALE: ${shoe.sale}.00 ${shoe.format}` : null,
     price: `${shoe.price}.00 ${shoe.format}`,
-    selectedColor: shoe.colors[0],
+    // selectedColor: shoe.colors[0],
   };
 });
 
