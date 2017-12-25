@@ -59,7 +59,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   customFont: {
-    fontFamily: 'SkyhookMono',
+    // fontFamily: 'ARCADECLASSIC',
   },
   header: {
     fontSize: 62,
@@ -142,7 +142,7 @@ export default StyleSheet.create({
   },
   absoluteTopLeft: {
     position: 'absolute',
-    left: sizes.defaultSpacing,
+    right: sizes.defaultSpacing,
     top: sizes.defaultSpacing,
   },
   image: {
@@ -151,7 +151,7 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   imageHero: {
-    width: 400,
+    width: 340,
     height: 340,
     resizeMode: 'contain',
   },

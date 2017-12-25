@@ -14,13 +14,17 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Button from '../components/button';
 import theme, { sizes } from '../components/theme';
-
-const NAV_HEIGHT = 86; //NavigationBar.DEFAULT_HEIGHT + 20;
+import Footer from '../components/Footer';
+const NAV_HEIGHT = 60; //NavigationBar.DEFAULT_HEIGHT + 20;
 const HERO_HEIGHT = 440;
 const HERO_IMAGE_CONTAINER_HEIGHT = HERO_HEIGHT - 100;
 
 // @withNavigation
-export default class ProductDetails extends React.Component {
+export default class Details extends React.Component {
+  static navigationOptions = {
+    header: null,
+  };
+
   static route = {
     navigationBar: {
       backgroundColor: 'rgba(255, 255, 255, 1)',
@@ -31,7 +35,7 @@ export default class ProductDetails extends React.Component {
     super(props);
 
     this.state = {
-      selectedColor: props.product.selectedColor,
+      selectedColor: 'red', //props.product.selectedColor,
       scrollY: new Animated.Value(0),
     };
   }
@@ -49,10 +53,10 @@ export default class ProductDetails extends React.Component {
   // }
 
   render() {
-    const { product } = this.props;
+    const { product } = this.props.navigation.state.params;
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: 'white' }]}>
         <View
           style={{ flex: 1, width: sizes.screenWidth, marginTop: NAV_HEIGHT }}
         >
@@ -69,68 +73,11 @@ export default class ProductDetails extends React.Component {
               <Text
                 style={[theme.customFont, { margin: sizes.defaultSpacing }]}
               >
-                Yet bed any for travelling assistance indulgence unpleasing. Not
-                thoughts all exercise blessing. Indulgence way everything joy
-                alteration boisterous the attachment. Party we years to order
-                allow asked of. We so opinion friends me message as delight.
-                Whole front do of plate heard oh ought. His defective nor
-                convinced residence own. Connection has put impossible own
-                apartments boisterous. At jointure ladyship an insisted so
-                humanity he. Friendly bachelor entrance to on by.
-              </Text>
-              <Text
-                style={[theme.customFont, { margin: sizes.defaultSpacing }]}
-              >
-                In by an appetite no humoured returned informed. Possession so
-                comparison inquietude he he conviction no decisively. Marianne
-                jointure attended she hastened surprise but she. Ever lady son
-                yet you very paid form away. He advantage of exquisite resolving
-                if on tolerably. Become sister on in garden it barton waited on.{' '}
-              </Text>
-              <Text
-                style={[theme.customFont, { margin: sizes.defaultSpacing }]}
-              >
-                To sure calm much most long me mean. Able rent long in do we.
-                Uncommonly no it announcing melancholy an in. Mirth learn it he
-                given. Secure shy favour length all twenty denote. He felicity
-                no an at packages answered opinions juvenile.{' '}
-              </Text>
-              <Text
-                style={[theme.customFont, { margin: sizes.defaultSpacing }]}
-              >
-                Agreed joy vanity regret met may ladies oppose who. Mile fail as
-                left as hard eyes. Meet made call in mean four year it to.
-                Prospect so branched wondered sensible of up. For gay consisted
-                resolving pronounce sportsman saw discovery not. Northward or
-                household as conveying we earnestly believing. No in up
-                contrasted discretion inhabiting excellence. Entreaties we
-                collecting unpleasant at everything conviction.
-              </Text>
-              <Text
-                style={[theme.customFont, { margin: sizes.defaultSpacing }]}
-              >
-                Sussex result matter any end see. It speedily me addition
-                weddings vicinity in pleasure. Happiness commanded an conveying
-                breakfast in. Regard her say warmly elinor. Him these are visit
-                front end for seven walls. Money eat scale now ask law learn.
-                Side its they just any upon see last. He prepared no shutters
-                perceive do greatest. Ye at unpleasant solicitude in companions
-                interested.{' '}
-              </Text>
-              <Text
-                style={[theme.customFont, { margin: sizes.defaultSpacing }]}
-              >
-                Received overcame oh sensible so at an. Formed do change merely
-                to county it. Am separate contempt domestic to to oh. On
-                relation my so addition branched. Put hearing cottage she
-                norland letters equally prepare too. Replied exposed savings he
-                no viewing as up. Soon body add him hill. No father living
-                really people estate if. Mistake do produce beloved demesne if
-                am pursuit.
+                {product.description}
               </Text>
             </View>
           </Animated.ScrollView>
-          {this._renderProductFooter()}
+          <Footer onPress={() => {}} />
         </View>
         {this._renderNavigation()}
       </View>
@@ -138,14 +85,17 @@ export default class ProductDetails extends React.Component {
   }
 
   goBack() {
-    this.props.navigator.pop();
+    this.props.navigation.goBack();
+    // this.props.navigator.pop();
   }
 
   _renderNavigation() {
-    const { product } = this.props;
+    const { product } = this.props.navigation.state.params;
 
     return (
-      <Animated.View style={styles.navbar}>
+      <Animated.View
+        style={[styles.navbar, { backgroundColor: product.selectedColor }]}
+      >
         <TouchableOpacity onPress={() => this.goBack()}>
           <Ionicons
             name="ios-arrow-round-back-outline"
@@ -158,16 +108,18 @@ export default class ProductDetails extends React.Component {
           <Animated.View
             style={[
               theme.newLabel,
-              theme.absoluteTopLeft,
               theme.greenTheme,
               {
-                left: (sizes.screenWidth - sizes.newLabelWidth) / 2 - 56,
                 top: (NAV_HEIGHT - sizes.newLabelHeight) / 2,
                 zIndex: 2,
                 transform: [
                   {
                     translateY: this.state.scrollY.interpolate({
-                      inputRange: [-1, 0, HERO_HEIGHT / 4],
+                      inputRange: [
+                        -1,
+                        HERO_HEIGHT - NAV_HEIGHT * 2,
+                        HERO_HEIGHT - NAV_HEIGHT,
+                      ],
                       outputRange: [0, 0, -NAV_HEIGHT],
                     }),
                   },
@@ -175,7 +127,9 @@ export default class ProductDetails extends React.Component {
               },
             ]}
           >
-            <Text style={[theme.newLabelText, theme.customFont]}>NEW</Text>
+            <Text style={[theme.newLabelText, theme.customFont]}>
+              {product.category}
+            </Text>
           </Animated.View>
           <Animated.View
             style={[
@@ -209,7 +163,7 @@ export default class ProductDetails extends React.Component {
             <Text style={[theme.customFont, theme.title]} numberOfLines={1}>
               {product.title}
             </Text>
-            <Text style={[theme.customFont, theme.price]}>{product.price}</Text>
+            <Text style={[theme.customFont, theme.price]} />
           </Animated.View>
         </View>
         <View style={styles.placeholder} />
@@ -218,14 +172,14 @@ export default class ProductDetails extends React.Component {
   }
 
   _renderHero() {
-    const { product } = this.props;
+    const { product } = this.props.navigation.state.params;
+    // {this._renderColorPicker()}
 
     return (
       <View style={styles.hero}>
         <View style={styles.heroImageContainer}>
-          {this._renderColorPicker()}
           <Animated.Image
-            source={{ uri: product.image }}
+            source={product.image}
             style={[theme.image, theme.imageHero]}
           />
         </View>
@@ -240,7 +194,7 @@ export default class ProductDetails extends React.Component {
   }
 
   _renderColorPicker() {
-    const { product } = this.props;
+    const { product } = this.props.navigation.state.params;
     const inputRange = [0, HERO_IMAGE_CONTAINER_HEIGHT / 2];
 
     return (
@@ -307,23 +261,7 @@ export default class ProductDetails extends React.Component {
 
   onColorPress(color) {
     return;
-
-    // use redux :)
     this.setState({ selectedColor: color });
-  }
-
-  _renderProductFooter() {
-    const { product } = this.props;
-    return (
-      <View style={[theme.groupButton, styles.footer]}>
-        <Button onPress={() => this.goBack()} theme="light">
-          ADD TO CART
-        </Button>
-        <Button onPress={() => this.goBack()} theme="dark">
-          BUY NOW
-        </Button>
-      </View>
-    );
   }
 }
 
@@ -353,16 +291,20 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: NAV_HEIGHT,
+    overflow: 'hidden',
     paddingTop: Expo.Constants.statusBarHeight,
     alignItems: 'center',
     paddingHorizontal: sizes.defaultSpacing,
     borderBottomColor: '#ddd',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   navigationDetails: {
     height: NAV_HEIGHT,
-    position: 'relative',
+    // position: 'relative',
   },
-
+  backButton: {
+    backgroundColor: 'transparent',
+  },
   // Hero
   hero: {
     alignItems: 'center',

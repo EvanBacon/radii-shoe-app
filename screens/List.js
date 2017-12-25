@@ -13,36 +13,19 @@ import Button from '../components/button';
 import theme from '../components/theme';
 import AppRouter from '../AppRouter';
 
+import Products from '../Products';
 import Images from '../Images';
-import Shoes from '../Shoes';
-
-const PRODUCT_LIST = Object.keys(Shoes).map(key => {
-  const shoe = Shoes[key];
-
-  return {
-    ...shoe,
-    title: shoe.name,
-    sale: shoe.sale ? `SALE: ${shoe.sale}.00 ${shoe.format}` : null,
-    price: `${shoe.price}.00 ${shoe.format}`,
-    // selectedColor: shoe.colors[0],
-  };
-});
-
+import Footer from '../components/Footer';
 const PADDING = 40;
 const INDICATOR_CONTAINER_HEIGHT = 2;
 const INDICATOR_CONTAINER_WIDTH = width - PADDING * 2;
-const INDICATOR_WIDTH = INDICATOR_CONTAINER_WIDTH / PRODUCT_LIST.length;
+const INDICATOR_WIDTH = INDICATOR_CONTAINER_WIDTH / Products.length;
 
-// @withNavigation
-export default class ProductList extends React.Component {
-  _placeHeaderGroups = {};
-  static route = {
-    navigationBar: {
-      title: 'Products',
-      backgroundColor: 'rgba(255, 255, 255, .5)',
-      visible: false,
-    },
+export default class List extends React.Component {
+  static navigationOptions = {
+    header: null,
   };
+  _placeHeaderGroups = {};
 
   constructor(props, context) {
     super(props, context);
@@ -72,9 +55,7 @@ export default class ProductList extends React.Component {
             { useNativeDriver: true },
           )}
         >
-          {PRODUCT_LIST.map((product, index) =>
-            this._renderRow(product, index),
-          )}
+          {Products.map((product, index) => this._renderRow(product, index))}
         </Animated.ScrollView>
         <Animated.View style={ss.indicatorContainer}>
           <Animated.View
@@ -93,8 +74,8 @@ export default class ProductList extends React.Component {
     let currentIndex = offset.value / width;
     if (offset.value < 0) {
       currentIndex = 0;
-    } else if (offset.value > (PRODUCT_LIST.length - 1) * width) {
-      currentIndex = PRODUCT_LIST.length - 1;
+    } else if (offset.value > (Products.length - 1) * width) {
+      currentIndex = Products.length - 1;
     }
 
     this.state.indicator.setValue(currentIndex * INDICATOR_WIDTH);
@@ -186,28 +167,14 @@ export default class ProductList extends React.Component {
           >
             {product.sale || product.price}
           </Text>
-
-          {this._renderProductFooter(product, i)}
+          <Footer
+            onPress={index => {
+              this.props.navigation.navigate('Details', { product });
+            }}
+            product={product}
+            i={i}
+          />
         </View>
-      </View>
-    );
-  }
-
-  _renderProductFooter(product, i) {
-    return (
-      <View style={[theme.groupButton, ss.footer]}>
-        <Button
-          onPress={() => this.onProductListPress(product, i)}
-          theme="light"
-        >
-          ANALYZE
-        </Button>
-        <Button
-          onPress={() => this.onProductListPress(product, i)}
-          theme="light"
-        >
-          ACQUIRE
-        </Button>
       </View>
     );
   }
