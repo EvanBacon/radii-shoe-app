@@ -1,25 +1,21 @@
+import { Ionicons } from '@expo/vector-icons';
+import Expo from 'expo';
 import React from 'react';
-
 import {
-  View,
-  Text,
-  StyleSheet,
   Animated,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 
-import Expo from 'expo';
-// import { NavigationBar, withNavigation } from '@expo/ex-navigation';
-import { Ionicons } from '@expo/vector-icons';
-
-import Button from '../components/button';
-import theme, { sizes } from '../components/theme';
 import Footer from '../components/Footer';
+import theme, { sizes } from '../components/theme';
+
 const NAV_HEIGHT = 60; //NavigationBar.DEFAULT_HEIGHT + 20;
 const HERO_HEIGHT = 440;
 const HERO_IMAGE_CONTAINER_HEIGHT = HERO_HEIGHT - 100;
 
-// @withNavigation
 export default class Details extends React.Component {
   static navigationOptions = {
     header: null,
@@ -39,18 +35,6 @@ export default class Details extends React.Component {
       scrollY: new Animated.Value(0),
     };
   }
-
-  // componentDidMount() {
-  //   this.state.scrollY.addListener(this.updateView.bind(this));
-  // }
-
-  // componentWillUnmount() {
-  //   this.state.scrollY.removeListener()
-  // }
-
-  // updateView(offset) {
-  //   // this.state.scrollY.setValue(offset.value)
-  // }
 
   render() {
     const { product } = this.props.navigation.state.params;
