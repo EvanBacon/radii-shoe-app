@@ -119,6 +119,7 @@ export default StyleSheet.create({
     borderRadius: (sizes.bigBubble - sizes.bigBubbleSelectedBorder * 2) / 2,
   },
   newLabel: {
+    zIndex: 1,
     minWidth: sizes.newLabelWidth,
     height: sizes.newLabelHeight,
     borderRadius: sizes.newLabelHeight / 2,

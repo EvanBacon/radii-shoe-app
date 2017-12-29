@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Linking,
 } from 'react-native';
 
 import Footer from '../components/Footer';
@@ -21,12 +22,6 @@ export default class Details extends React.Component {
     header: null,
   };
 
-  static route = {
-    navigationBar: {
-      backgroundColor: 'rgba(255, 255, 255, 1)',
-      visible: false,
-    },
-  };
   constructor(props) {
     super(props);
 
@@ -52,7 +47,7 @@ export default class Details extends React.Component {
               { useNativeDriver: true },
             )}
           >
-            {this._renderHero()}
+            {this._renderHero(product)}
             <View>
               <Text
                 style={[theme.customFont, { margin: sizes.defaultSpacing }]}
@@ -61,21 +56,27 @@ export default class Details extends React.Component {
               </Text>
             </View>
           </Animated.ScrollView>
-          <Footer onPress={() => {}} />
+          <Footer
+            onPress={() => {
+              const url = `http://www.radiifootwear.com/shop/footwear/${
+                product.category
+              }-${product.title.split(' ').join('-')}`.toLowerCase();
+              console.warn(url);
+              Linking.openURL(url);
+            }}
+            buy
+          />
         </View>
-        {this._renderNavigation()}
+        {this._renderNavigation(product)}
       </View>
     );
   }
 
   goBack() {
     this.props.navigation.goBack();
-    // this.props.navigator.pop();
   }
 
-  _renderNavigation() {
-    const { product } = this.props.navigation.state.params;
-
+  _renderNavigation(product) {
     return (
       <Animated.View
         style={[styles.navbar, { backgroundColor: product.selectedColor }]}
@@ -155,9 +156,8 @@ export default class Details extends React.Component {
     );
   }
 
-  _renderHero() {
-    const { product } = this.props.navigation.state.params;
-    // {this._renderColorPicker()}
+  _renderHero(product) {
+    // {this._renderColorPicker(product)}
 
     return (
       <View style={styles.hero}>
@@ -177,8 +177,7 @@ export default class Details extends React.Component {
     );
   }
 
-  _renderColorPicker() {
-    const { product } = this.props.navigation.state.params;
+  _renderColorPicker(product) {
     const inputRange = [0, HERO_IMAGE_CONTAINER_HEIGHT / 2];
 
     return (

@@ -1,65 +1,62 @@
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
   Animated,
+  Dimensions,
+  FlatList,
   ImageBackground,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 
-const { width } = Dimensions.get('window');
-import Button from '../components/button';
-import theme from '../components/theme';
-import AppRouter from '../AppRouter';
-
-import Products from '../Products';
-import Images from '../Images';
 import Footer from '../components/Footer';
+import theme from '../components/theme';
+import Images from '../Images';
+import Products from '../Products';
+
+const AnimatedFlatlist = Animated.createAnimatedComponent(FlatList);
+const { height, width } = Dimensions.get('window');
 const PADDING = 40;
-const INDICATOR_CONTAINER_HEIGHT = 2;
-const INDICATOR_CONTAINER_WIDTH = width - PADDING * 2;
+const INDICATOR_CONTAINER_HEIGHT = 4;
+const INDICATOR_CONTAINER_WIDTH = height - PADDING * 2;
 const INDICATOR_WIDTH = INDICATOR_CONTAINER_WIDTH / Products.length;
 
 export default class List extends React.Component {
   static navigationOptions = {
     header: null,
   };
-  _placeHeaderGroups = {};
 
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      selectedId: 0,
-      scrollX: new Animated.Value(0),
-      indicator: new Animated.Value(1),
-    };
-  }
+  state = {
+    selectedId: 0,
+    scrollX: new Animated.Value(0),
+    indicator: new Animated.Value(1),
+  };
 
   render() {
     return (
       <ImageBackground
         source={Images.stretch}
         resizeMode="cover"
-        style={[theme.container, theme.bg]}
+        style={[theme.container, theme.bg, { flexDirection: 'row' }]}
       >
-        <Animated.ScrollView
+        <AnimatedFlatlist
           pagingEnabled
-          scrollEventThrottle={16}
-          contentContainerStyle={[ss.contentContainer]}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
+          renderScrollComponent={props => <Animated.ScrollView {...props} />}
+          scrollEventThrottle={1}
+          horizontal={false}
+          style={{ flex: 1 }}
+          data={Products}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item, index }) => this._renderRow(item, index)}
+          showsVerticalScrollIndicator={false}
           onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: this.state.scrollX } } }],
+            [{ nativeEvent: { contentOffset: { y: this.state.scrollX } } }],
             { useNativeDriver: true },
           )}
-        >
-          {Products.map((product, index) => this._renderRow(product, index))}
-        </Animated.ScrollView>
-        <Animated.View style={ss.indicatorContainer}>
+        />
+        <Animated.View style={styles.indicatorContainer}>
           <Animated.View
-            style={[ss.indicator, { left: this.state.indicator }]}
+            style={[styles.indicator, { top: this.state.indicator }]}
           />
         </Animated.View>
       </ImageBackground>
@@ -71,10 +68,10 @@ export default class List extends React.Component {
   }
 
   updateView(offset) {
-    let currentIndex = offset.value / width;
+    let currentIndex = offset.value / height;
     if (offset.value < 0) {
       currentIndex = 0;
-    } else if (offset.value > (Products.length - 1) * width) {
+    } else if (offset.value > (Products.length - 1) * height) {
       currentIndex = Products.length - 1;
     }
 
@@ -83,15 +80,32 @@ export default class List extends React.Component {
 
   _renderRow(product, i) {
     let inputRange = [
-      (i - 1) * width,
-      i * width,
-      (i + 1) * width,
-      (i + 2) * width,
+      (i - 1) * height,
+      i * height,
+      (i + 1) * height,
+      (i + 2) * height,
     ];
 
+    const translation = 600;
+
+    const translateY = this.state.scrollX.interpolate({
+      inputRange,
+      outputRange: [-translation, 0, translation, translation],
+    });
+
+    const opacity = this.state.scrollX.interpolate({
+      inputRange,
+      outputRange: [-1, 1, -1, -1],
+    });
+
+    const metaTranslateY = this.state.scrollX.interpolate({
+      inputRange,
+      outputRange: [0, 0, translation * 0.35, translation],
+    });
+
     return (
-      <View style={[theme.container, ss.productItem]} key={i}>
-        <View style={ss.innerContainer}>
+      <View style={[theme.container, styles.productItem]} key={i}>
+        <View style={styles.innerContainer}>
           <View
             style={[theme.newLabel, theme.absoluteTopLeft, theme.greenTheme]}
           >
@@ -108,65 +122,77 @@ export default class List extends React.Component {
                   {
                     scale: this.state.scrollX.interpolate({
                       inputRange,
-                      outputRange: [0.3, 0.98, 0.3, 0.3],
+                      outputRange: [0.3, 0.95, 0.3, 0.3],
                     }),
+                  },
+                  {
+                    translateY,
                   },
                 ],
               },
             ]}
           />
-          <Text style={[theme.customFont, theme.title]}>{product.title}</Text>
-
-          <View
+          <Animated.View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginVertical: 10,
+              alignItems: 'center',
+              backgroundColor: 'white',
+              opacity,
+              transform: [{ translateY: metaTranslateY }],
             }}
           >
-            {product.colors.map((color, index) => {
-              return (
-                <View
-                  key={index}
-                  style={{
-                    position: 'relative',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
+            <Text style={[theme.customFont, theme.title]}>{product.title}</Text>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginVertical: 10,
+              }}
+            >
+              {product.colors.map((color, index) => {
+                return (
                   <View
-                    style={[
-                      theme.productColorBubble,
-                      {
-                        backgroundColor: color,
-                      },
-                    ]}
-                  />
-                  {product.selectedColor === color ? (
+                    key={index}
+                    style={{
+                      position: 'relative',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
                     <View
                       style={[
                         theme.productColorBubble,
-                        theme.selectedBubble,
                         {
                           backgroundColor: color,
                         },
                       ]}
                     />
-                  ) : null}
-                </View>
-              );
-            })}
-          </View>
+                    {product.selectedColor === color ? (
+                      <View
+                        style={[
+                          theme.productColorBubble,
+                          theme.selectedBubble,
+                          {
+                            backgroundColor: color,
+                          },
+                        ]}
+                      />
+                    ) : null}
+                  </View>
+                );
+              })}
+            </View>
 
-          <Text
-            style={[
-              theme.customFont,
-              theme.price,
-              product.sale && { color: 'red' },
-            ]}
-          >
-            {product.sale || product.price}
-          </Text>
+            <Text
+              style={[
+                theme.customFont,
+                theme.price,
+                product.sale && { color: 'red' },
+              ]}
+            >
+              {product.sale || product.price}
+            </Text>
+          </Animated.View>
           <Footer
             onPress={index => {
               this.props.navigation.navigate('Details', { product });
@@ -178,24 +204,9 @@ export default class List extends React.Component {
       </View>
     );
   }
-
-  onProductListPress(product, index) {
-    // this.props.navigator.push(
-    //   AppRouter.getRoute('productDetails', {
-    //     product,
-    //   }),
-    //   {
-    //     transitionGroup: this._placeHeaderGroups[index],
-    //   }
-    // );
-  }
 }
 
-const ss = StyleSheet.create({
-  contentContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const styles = StyleSheet.create({
   innerContainer: {
     shadowColor: '#000000',
     shadowOpacity: 0.2,
@@ -205,6 +216,8 @@ const ss = StyleSheet.create({
       width: 0,
     },
     borderRadius: 4,
+    borderTopLeftRadius: width / 8,
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'flex-end',
     flex: 1,
@@ -212,6 +225,7 @@ const ss = StyleSheet.create({
   },
   productItem: {
     width: width,
+    height: height,
     padding: 40,
   },
   footer: {
@@ -222,18 +236,20 @@ const ss = StyleSheet.create({
     borderTopColor: '#f0f0f0',
   },
   indicator: {
-    width: INDICATOR_WIDTH,
-    height: INDICATOR_CONTAINER_HEIGHT,
+    height: INDICATOR_WIDTH,
+    borderRadius: INDICATOR_CONTAINER_HEIGHT / 2,
+    width: INDICATOR_CONTAINER_HEIGHT,
     position: 'absolute',
-    top: 0,
-    backgroundColor: '#c0c0c0',
+    left: 0,
+    backgroundColor: '#000000',
   },
   indicatorContainer: {
-    height: INDICATOR_CONTAINER_HEIGHT,
-    marginVertical: 20,
+    width: INDICATOR_CONTAINER_HEIGHT,
+    borderRadius: INDICATOR_CONTAINER_HEIGHT / 2,
+    marginRight: 10,
     backgroundColor: '#ededed',
     position: 'relative',
-    width: INDICATOR_CONTAINER_WIDTH,
-    paddingHorizontal: PADDING,
+    height: INDICATOR_CONTAINER_WIDTH,
+    paddingVertical: PADDING,
   },
 });

@@ -8,7 +8,7 @@
   "dependencies": {
     "@expo/vector-icons": "6.2.2",
     "expo": "^24.0.0",
-    "react": "16.2.0",
+    "react": "16.1.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-24.0.0.tar.gz",
     "react-native-animate-number": "0.1.2",
     "react-native-elements": "0.18.5",
