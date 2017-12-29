@@ -12,14 +12,14 @@ import {
 import Footer from '../components/Footer';
 import theme from '../components/theme';
 import Images from '../Images';
-import Products from '../Products';
+import Shoes from '../Products';
 
 const AnimatedFlatlist = Animated.createAnimatedComponent(FlatList);
 const { height, width } = Dimensions.get('window');
 const PADDING = 40;
 const INDICATOR_CONTAINER_HEIGHT = 4;
 const INDICATOR_CONTAINER_WIDTH = height - PADDING * 2;
-const INDICATOR_WIDTH = INDICATOR_CONTAINER_WIDTH / Products.length;
+const INDICATOR_WIDTH = INDICATOR_CONTAINER_WIDTH / Shoes.length;
 
 export default class List extends React.Component {
   static navigationOptions = {
@@ -28,7 +28,7 @@ export default class List extends React.Component {
 
   state = {
     selectedId: 0,
-    scrollX: new Animated.Value(0),
+    scrollY: new Animated.Value(0),
     indicator: new Animated.Value(1),
   };
 
@@ -45,12 +45,12 @@ export default class List extends React.Component {
           scrollEventThrottle={1}
           horizontal={false}
           style={{ flex: 1 }}
-          data={Products}
+          data={Shoes}
           keyExtractor={(item, index) => index}
-          renderItem={({ item, index }) => this._renderRow(item, index)}
+          renderItem={this.renderItem}
           showsVerticalScrollIndicator={false}
           onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.state.scrollX } } }],
+            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
             { useNativeDriver: true },
           )}
         />
@@ -64,63 +64,63 @@ export default class List extends React.Component {
   }
 
   componentDidMount() {
-    this.state.scrollX.addListener(this.updateView.bind(this));
+    this.state.scrollY.addListener(this.updateView.bind(this));
   }
 
   updateView(offset) {
     let currentIndex = offset.value / height;
     if (offset.value < 0) {
       currentIndex = 0;
-    } else if (offset.value > (Products.length - 1) * height) {
-      currentIndex = Products.length - 1;
+    } else if (offset.value > (Shoes.length - 1) * height) {
+      currentIndex = Shoes.length - 1;
     }
 
     this.state.indicator.setValue(currentIndex * INDICATOR_WIDTH);
   }
 
-  _renderRow(product, i) {
+  renderItem = ({ item: shoe, index }) => {
     let inputRange = [
-      (i - 1) * height,
-      i * height,
-      (i + 1) * height,
-      (i + 2) * height,
+      (index - 1) * height,
+      index * height,
+      (index + 1) * height,
+      (index + 2) * height,
     ];
 
     const translation = 600;
 
-    const translateY = this.state.scrollX.interpolate({
+    const translateY = this.state.scrollY.interpolate({
       inputRange,
       outputRange: [-translation, 0, translation, translation],
     });
 
-    const opacity = this.state.scrollX.interpolate({
+    const opacity = this.state.scrollY.interpolate({
       inputRange,
       outputRange: [-1, 1, -1, -1],
     });
 
-    const metaTranslateY = this.state.scrollX.interpolate({
+    const metaTranslateY = this.state.scrollY.interpolate({
       inputRange,
       outputRange: [0, 0, translation * 0.35, translation],
     });
 
     return (
-      <View style={[theme.container, styles.productItem]} key={i}>
+      <View style={[theme.container, styles.shoeItem]}>
         <View style={styles.innerContainer}>
           <View
             style={[theme.newLabel, theme.absoluteTopLeft, theme.greenTheme]}
           >
             <Text style={[theme.newLabelText, theme.customFont]}>
-              {product.category}
+              {shoe.category}
             </Text>
           </View>
           <Animated.Image
-            source={product.image}
+            source={shoe.image}
             style={[
               theme.image,
               {
                 transform: [
                   {
-                    scale: this.state.scrollX.interpolate({
+                    scale: this.state.scrollY.interpolate({
                       inputRange,
                       outputRange: [0.3, 0.95, 0.3, 0.3],
                     }),
@@ -140,7 +140,7 @@ export default class List extends React.Component {
               transform: [{ translateY: metaTranslateY }],
             }}
           >
-            <Text style={[theme.customFont, theme.title]}>{product.title}</Text>
+            <Text style={[theme.customFont, theme.title]}>{shoe.title}</Text>
 
             <View
               style={{
@@ -149,7 +149,7 @@ export default class List extends React.Component {
                 marginVertical: 10,
               }}
             >
-              {product.colors.map((color, index) => {
+              {shoe.colors.map((color, index) => {
                 return (
                   <View
                     key={index}
@@ -161,16 +161,16 @@ export default class List extends React.Component {
                   >
                     <View
                       style={[
-                        theme.productColorBubble,
+                        theme.shoeColorBubble,
                         {
                           backgroundColor: color,
                         },
                       ]}
                     />
-                    {product.selectedColor === color ? (
+                    {shoe.selectedColor === color ? (
                       <View
                         style={[
-                          theme.productColorBubble,
+                          theme.shoeColorBubble,
                           theme.selectedBubble,
                           {
                             backgroundColor: color,
@@ -187,23 +187,21 @@ export default class List extends React.Component {
               style={[
                 theme.customFont,
                 theme.price,
-                product.sale && { color: 'red' },
+                shoe.sale && { color: 'red' },
               ]}
             >
-              {product.sale || product.price}
+              {shoe.sale || shoe.price}
             </Text>
           </Animated.View>
           <Footer
-            onPress={index => {
-              this.props.navigation.navigate('Details', { product });
-            }}
-            product={product}
-            i={i}
+            onPress={index =>
+              this.props.navigation.navigate('Details', { shoe })
+            }
           />
         </View>
       </View>
     );
-  }
+  };
 }
 
 const styles = StyleSheet.create({
@@ -223,7 +221,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
-  productItem: {
+  shoeItem: {
     width: width,
     height: height,
     padding: 40,

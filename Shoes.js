@@ -1,4 +1,16 @@
 export default {
+  Cylinder_white_leather_ice: {
+    category: 'Cylinder',
+
+    name: 'White Leather Ice',
+    price: 130,
+    colors: ['#ECEFFF', '#4AB1D5'],
+    format: 'USD',
+    description:
+      'This post apocalyptic high top is brought to life with its unique design and padded straps over the forefoot and ankle.  With metal logo detailing on the tongue, a padded collar and tongue for support, and our new stitched outsole for durability and comfort, this shoe will become a staple piece for many years to come.   Inside the shoe is our patented Cloud 9 insole for maximum comfort.',
+    image: require(`./assets/shoes/Cylinder_white_leather_ice.jpg`),
+  },
+
   Cylinder_nautical2: {
     category: 'Cylinder',
 

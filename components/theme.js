@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -53,14 +53,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  groupButton: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    justifyContent: 'center',
-  },
-  customFont: {
-    // fontFamily: 'ARCADECLASSIC',
-  },
   header: {
     fontSize: 62,
     marginVertical: 20,
@@ -83,8 +75,8 @@ export default StyleSheet.create({
   normal: {
     fontSize: 14,
   },
-  // Product list styles
-  productColorBubble: {
+  // Shoe list styles
+  shoeColorBubble: {
     height: sizes.bubble,
     width: sizes.bubble,
     borderRadius: sizes.bubble / 2,
@@ -100,8 +92,8 @@ export default StyleSheet.create({
     height: sizes.bubble - sizes.bubbleSelectedBorder * 2,
     borderRadius: (sizes.bubble - sizes.bubbleSelectedBorder * 2) / 2,
   },
-  // Product list styles
-  productColorBigBubble: {
+  // Shoe list styles
+  shoeColorBigBubble: {
     height: sizes.bigBubble,
     width: sizes.bigBubble,
     borderRadius: sizes.bigBubble / 2,
@@ -148,11 +140,6 @@ export default StyleSheet.create({
   },
   image: {
     width: 300,
-    height: 340,
-    resizeMode: 'contain',
-  },
-  imageHero: {
-    width: 340,
     height: 340,
     resizeMode: 'contain',
   },

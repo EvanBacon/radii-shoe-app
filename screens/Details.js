@@ -3,17 +3,17 @@ import Expo from 'expo';
 import React from 'react';
 import {
   Animated,
+  Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Linking,
 } from 'react-native';
 
 import Footer from '../components/Footer';
 import theme, { sizes } from '../components/theme';
 
-const NAV_HEIGHT = 60; //NavigationBar.DEFAULT_HEIGHT + 20;
+const NAV_HEIGHT = 60;
 const HERO_HEIGHT = 440;
 const HERO_IMAGE_CONTAINER_HEIGHT = HERO_HEIGHT - 100;
 
@@ -21,18 +21,12 @@ export default class Details extends React.Component {
   static navigationOptions = {
     header: null,
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedColor: 'red', //props.product.selectedColor,
-      scrollY: new Animated.Value(0),
-    };
-  }
+  state = {
+    scrollY: new Animated.Value(0),
+  };
 
   render() {
-    const { product } = this.props.navigation.state.params;
+    const { shoe } = this.props.navigation.state.params;
 
     return (
       <View style={[styles.container, { backgroundColor: 'white' }]}>
@@ -47,41 +41,35 @@ export default class Details extends React.Component {
               { useNativeDriver: true },
             )}
           >
-            {this._renderHero(product)}
+            {this.renderHero(shoe)}
             <View>
               <Text
                 style={[theme.customFont, { margin: sizes.defaultSpacing }]}
               >
-                {product.description}
+                {shoe.description}
               </Text>
             </View>
           </Animated.ScrollView>
           <Footer
             onPress={() => {
               const url = `http://www.radiifootwear.com/shop/footwear/${
-                product.category
-              }-${product.title.split(' ').join('-')}`.toLowerCase();
+                shoe.category
+              }-${shoe.title.split(' ').join('-')}`.toLowerCase();
               console.warn(url);
               Linking.openURL(url);
             }}
             buy
           />
         </View>
-        {this._renderNavigation(product)}
+        {this.renderNavigation(shoe)}
       </View>
     );
   }
 
-  goBack() {
-    this.props.navigation.goBack();
-  }
-
-  _renderNavigation(product) {
+  renderNavigation(shoe) {
     return (
-      <Animated.View
-        style={[styles.navbar, { backgroundColor: product.selectedColor }]}
-      >
-        <TouchableOpacity onPress={() => this.goBack()}>
+      <Animated.View style={styles.navbar}>
+        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
           <Ionicons
             name="ios-arrow-round-back-outline"
             size={38}
@@ -113,7 +101,7 @@ export default class Details extends React.Component {
             ]}
           >
             <Text style={[theme.newLabelText, theme.customFont]}>
-              {product.category}
+              {shoe.category}
             </Text>
           </Animated.View>
           <Animated.View
@@ -146,7 +134,7 @@ export default class Details extends React.Component {
             ]}
           >
             <Text style={[theme.customFont, theme.title]} numberOfLines={1}>
-              {product.title}
+              {shoe.title}
             </Text>
             <Text style={[theme.customFont, theme.price]} />
           </Animated.View>
@@ -156,95 +144,23 @@ export default class Details extends React.Component {
     );
   }
 
-  _renderHero(product) {
-    // {this._renderColorPicker(product)}
-
+  renderHero(shoe) {
     return (
       <View style={styles.hero}>
         <View style={styles.heroImageContainer}>
           <Animated.Image
-            source={product.image}
-            style={[theme.image, theme.imageHero]}
+            source={shoe.image}
+            style={[theme.image, styles.imageHero]}
           />
         </View>
         <View style={[styles.container]}>
           <Text style={[theme.customFont, theme.title]} numberOfLines={1}>
-            {product.title}
+            {shoe.title}
           </Text>
-          <Text style={[theme.customFont, theme.price]}>{product.price}</Text>
+          <Text style={[theme.customFont, theme.price]}>{shoe.price}</Text>
         </View>
       </View>
     );
-  }
-
-  _renderColorPicker(product) {
-    const inputRange = [0, HERO_IMAGE_CONTAINER_HEIGHT / 2];
-
-    return (
-      <Animated.View
-        style={[
-          styles.colorPickerContainer,
-          {
-            transform: [
-              {
-                translateY: this.state.scrollY.interpolate({
-                  inputRange: inputRange,
-                  outputRange: [0, -30],
-                }),
-              },
-            ],
-            opacity: this.state.scrollY.interpolate({
-              inputRange,
-              outputRange: [1, 0],
-            }),
-          },
-        ]}
-      >
-        <View style={styles.colorPicker}>
-          {product.colors.map((color, index) => {
-            return (
-              <TouchableOpacity
-                onPress={this.onColorPress.bind(this, color)}
-                key={color + '' + index}
-              >
-                <View
-                  key={index}
-                  style={{
-                    position: 'relative',
-                    marginBottom: sizes.defaultSpacing / 2,
-                  }}
-                >
-                  <View
-                    style={[
-                      theme.productColorBigBubble,
-                      {
-                        backgroundColor: color,
-                      },
-                    ]}
-                  />
-                  {this.state.selectedColor === color ? (
-                    <View
-                      style={[
-                        theme.productColorBigBubble,
-                        theme.selectedBigBubble,
-                        {
-                          backgroundColor: color,
-                        },
-                      ]}
-                    />
-                  ) : null}
-                </View>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-      </Animated.View>
-    );
-  }
-
-  onColorPress(color) {
-    return;
-    this.setState({ selectedColor: color });
   }
 }
 
@@ -263,8 +179,13 @@ const styles = StyleSheet.create({
     width: sizes.placeholderSize,
   },
 
-  productDetailsContainer: {
+  shoeDetailsContainer: {
     paddingTop: NAV_HEIGHT,
+  },
+  imageHero: {
+    width: 340,
+    height: 340,
+    resizeMode: 'contain',
   },
 
   navbar: {
@@ -317,12 +238,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 2,
   },
-
   footer: {
-    // position: 'absolute',
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
     shadowColor: '#000000',
     shadowOpacity: 0.2,
     shadowRadius: 5,
